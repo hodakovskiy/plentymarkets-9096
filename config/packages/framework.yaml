@@ -15,7 +15,22 @@ framework:
     #esi: true
     #fragments: true
     php_errors:
-        log: true
+         log: true
+
+    http_client:
+      scoped_clients:
+          example_api:
+              base_uri: '%env(BASE_URI)%'
+
+              # HTTP Basic authentication
+              auth_basic: '%env(PLENTY_USERNAME)%:%env(PLENTY_PASSWORD)%'
+
+              # HTTP Bearer authentication (also called token authentication)
+              auth_bearer: the-bearer-token
+
+              # Microsoft NTLM authentication
+              auth_ntlm: '%env(PLENTY_USERNAME)%:%env(PLENTY_PASSWORD)%'
+
 
 when@test:
     framework:
