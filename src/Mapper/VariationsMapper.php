@@ -20,6 +20,7 @@ class VariationsMapper
     }
 
     return $target
+            ->setId($variation['id'])
             ->setNumber($variation['number'])
             ->setCategoryName($this->getCategoryName($variation))
             ->setProductModel($variation['model'])

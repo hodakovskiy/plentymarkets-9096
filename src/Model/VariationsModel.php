@@ -31,6 +31,8 @@ class VariationsModel
     return $this->id;
   }
 
+  
+
   public function getNumber(): ?string
   {
     return $this->number;
@@ -143,25 +145,6 @@ class VariationsModel
     return $this;
   }
 
-  /**
-   * Get the value of product
-   */
-  public function getProduct(): ?Product
-  {
-    return $this->product;
-  }
-
-  /**
-   * Set the value of product
-   *
-   * @return  self
-   */
-  public function setProduct(?Product $product): self
-  {
-    $this->product = $product;
-
-    return $this;
-  }
 
   public function toArray(): array
   {
@@ -177,5 +160,6 @@ class VariationsModel
       'market_availabilities' => $this->getMarketAvailabilities()
     ];
   }
+
 
 }

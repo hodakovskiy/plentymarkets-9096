@@ -12,7 +12,6 @@ class Variations
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -64,6 +63,12 @@ class Variations
      * @ORM\JoinColumn(nullable=false)
      */
     private $product;
+
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
 
     public function getId(): ?int
     {

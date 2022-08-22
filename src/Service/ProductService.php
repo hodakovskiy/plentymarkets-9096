@@ -38,14 +38,26 @@ class ProductService
 
   /**
    *
-   * @param type $itemId
+   * @param type $id
    * @return Product
    */
-  public function getProductById($itemId)
+  public function getProductById($id)
   {
-    $product = $this->productRepository->findByItem($itemId);
+    $product = $this->productRepository->find($id);
     return $product;
   }
+  
+  /**
+   *
+   * @param type $id
+   * @return Variations
+   */
+  public function getVariationById($id)
+  {
+    $variation = $this->variationRepository->find($id);
+    return $variation;
+  }
+ 
 
   /**
    *
@@ -58,21 +70,19 @@ class ProductService
 
     $productHttp = $this->productsHttpService->get($id);
     $product = (new ProductMapper)($productHttp, $this->getProductById($id));
+    $this->productRepository->add($product, true);
 
     $variations = array_map(function ($variation) use ($product) {
 
-      $variation = (new VariationsMapper($this->categoriesHttpService))($variation, new Variations);
+      $variationOld = $this->getVariationById($variation['id']);
+
+      $variation = (new VariationsMapper($this->categoriesHttpService))($variation, $variationOld);
       $variation->setProduct($product);
       return $variation;
     }, $this->variationsHttpService->get($id));
 
+    $this->variationRepository->saveAll($variations, true);
 
-    foreach ($variations as $variation) {
-      $product->addVariation($variation);
-    }
-
-
-    $this->productRepository->add($product, true);
 
 
   }

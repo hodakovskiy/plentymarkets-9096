@@ -28,11 +28,22 @@ class VariationsRepository extends ServiceEntityRepository
 
     public function add(Variations $entity, bool $flush = false): void
     {
+      
         $this->getEntityManager()->persist($entity);
-
+  
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function saveAll(array $entities, bool $flush = false): void
+    {
+        
+        foreach ($entities as $entity) {
+         
+            $this->add($entity, $flush);
+        }
+
     }
 
     public function remove(Variations $entity, bool $flush = false): void

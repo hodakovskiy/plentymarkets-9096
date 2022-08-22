@@ -21,23 +21,28 @@ class ItemService
     $this->variationRepository = $variationRepository;
   }
 
-  public function getItems($itemId)
+  public function getItems($id)
   {
 
-    $items = $this->getProduct($itemId)->toArray();
+    if(!$items = $this->getProduct($id)) {
+      return false;
+    }
+
+    $items = $items->toArray();
 
     $items['variations'] = $this->itemsVariations($items['id']);
 
     return $items;
   }
 
-  public function getProduct($itemId)
+  public function getProduct($id)
   {
-    $product = $this->productRepository->findByItem($itemId);
-
+    $product = $this->productRepository->findByItemId($id);
+    if(empty($product)) {
+      return false;
+    }
     return new ProductModel(
         $product->getId(),
-        $product->getItemId(),
         $product->getName(),
         $product->getDescription(),
     );
@@ -61,11 +66,3 @@ class ItemService
   }
 
 }
-
-//$variations->getId(),
-//            $variations->getNumber(),
-//            ,
-//           ,
-//           ,
-//            $variations->getPrice(),
-//            $variations->getMarketAvailabilities()

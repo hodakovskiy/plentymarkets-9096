@@ -21,18 +21,6 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    public function findAll()
-    {
-        return $this->findBy(array(), array('id' => 'ASC'));
-    }
-
-    public function findByItem($itemId)
-    {
-        return $this->findOneBy(['itemId' => $itemId]);
-    }
-
-
-
     public function add(Product $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

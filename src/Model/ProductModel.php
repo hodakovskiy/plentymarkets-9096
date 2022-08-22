@@ -5,10 +5,9 @@ namespace App\Model;
 class ProductModel
 {
 
-  public function __construct(int $id, int $itemId, string $name, string $description)
+  public function __construct(int $id, string $name, string $description)
   {
     $this->id = $id;
-    $this->itemId = $itemId;
     $this->name = $name;
     $this->description = $description;
   }
@@ -17,11 +16,6 @@ class ProductModel
    * @var int
    */
   private $id;
-
-  /**
-   * @var int
-   */
-  private $itemId;
 
   /**
    * @var string
@@ -36,11 +30,6 @@ class ProductModel
   public function getId(): int
   {
     return $this->id;
-  }
-
-  public function getItemId(): int
-  {
-    return $this->itemId;
   }
 
   public function getName(): string
@@ -59,11 +48,6 @@ class ProductModel
     return $this;
   }
 
-  public function setItemId(int $itemId)
-  {
-    $this->itemId = $itemId;
-    return $this;
-  }
 
   public function setName(string $name)
   {
@@ -81,7 +65,6 @@ class ProductModel
   {
     return [
       'id' => $this->id,
-      'itemId' => $this->itemId,
       'name' => $this->name,
       'description' => $this->description,
     ];

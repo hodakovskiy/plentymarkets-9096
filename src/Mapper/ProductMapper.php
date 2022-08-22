@@ -13,10 +13,11 @@ class ProductMapper
             $target = new Product();
         }
         $texts = $product['texts'][0];
+
         return  $target
-            ->setItemId($product['id'])
-            ->setName($texts['name1'])
-            ->setDescription($texts['description']);
+                ->setId($product['id'])
+                ->setName($texts['name1'])
+                ->setDescription($texts['description']);
     }
 
 }

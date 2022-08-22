@@ -14,15 +14,9 @@ class Product
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
-
-  /**
-     * @ORM\Column(type="integer")
-     */
-    private $itemId;
 
     /**
      * @ORM\Column(type="string")
@@ -46,21 +40,15 @@ class Product
         $this->variations = new ArrayCollection();
     }
 
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getItemId(): ?int
-    {
-        return $this->itemId;
-    }
-
-    public function setItemId(int $itemId): self
-    {
-        $this->itemId = $itemId;
-
-        return $this;
     }
 
 
@@ -130,7 +118,6 @@ class Product
     {
         return [
             'id' => $this->id,
-            'itemId' => $this->itemId,
             'name' => $this->name,
             'description' => $this->description,
             'variations' => $this->variations->toArray()
