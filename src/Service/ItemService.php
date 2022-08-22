@@ -37,7 +37,7 @@ class ItemService
 
   public function getProduct($id)
   {
-    $product = $this->productRepository->findByItemId($id);
+    $product = $this->productRepository->find($id);
     if(empty($product)) {
       return false;
     }
