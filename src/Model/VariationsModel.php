@@ -62,7 +62,7 @@ class VariationsModel
     return $this->barcode;
   }
 
-  public function setBarcode(string $barcode): self
+  public function setBarcode(string $barcode = ""): self
   {
     $this->barcode = $barcode;
 

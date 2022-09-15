@@ -80,7 +80,7 @@ class Variations
         return $this->number;
     }
 
-    public function setNumber(string $number): self
+    public function setNumber(?string $number): self
     {
         $this->number = $number;
 
@@ -92,7 +92,7 @@ class Variations
         return $this->category_name;
     }
 
-    public function setCategoryName(string $category_name): self
+    public function setCategoryName(?string $category_name): self
     {
         $this->category_name = $category_name;
 
@@ -101,10 +101,10 @@ class Variations
 
     public function getBarcode(): ?string
     {
-        return $this->barcode;
+        return $this->barcode ?? '';
     }
 
-    public function setBarcode(string $barcode): self
+    public function setBarcode(?string $barcode): self
     {
         $this->barcode = $barcode;
 
@@ -116,7 +116,7 @@ class Variations
         return $this->unit_info;
     }
 
-    public function setUnitInfo(string $unit_info): self
+    public function setUnitInfo(?string $unit_info): self
     {
         $this->unit_info = $unit_info;
 
@@ -128,7 +128,7 @@ class Variations
         return $this->images;
     }
 
-    public function setImages(string $images): self
+    public function setImages(?string $images): self
     {
         $this->images = $images;
 
@@ -140,68 +140,50 @@ class Variations
         return $this->market_availabilities;
     }
 
-    public function setMarketAvailabilities(string $market_availabilities): self
+    public function getMarketAvailabilitiesArray(): ?array
+    {
+        return explode(',', $this->market_availabilities);
+    }
+  
+
+
+    public function setMarketAvailabilities(?string $market_availabilities): self
     {
         $this->market_availabilities = $market_availabilities;
 
         return $this;
     }
 
-    /**
-     * Get the value of product_model
-     */
-    public function getProductModel()
+    public function getProductModel(): ?string
     {
         return $this->product_model;
     }
 
-    /**
-     * Set the value of product_model
-     *
-     * @return  self
-     */
-    public function setProductModel($product_model)
+    public function setProductModel(?string $product_model): self
     {
         $this->product_model = $product_model;
 
         return $this;
     }
 
-    /**
-     * Get the value of price
-     */
-    public function getPrice()
+    public function getPrice(): ?string
     {
         return $this->price;
     }
 
-    /**
-     * Set the value of price
-     *
-     * @return  self
-     */
-    public function setPrice($price)
+    public function setPrice(?string $price): self
     {
         $this->price = $price;
 
         return $this;
     }
 
-    /**
-     * Get the value of product
-     */
-    public function getProduct() : ?Product
+    public function getProduct(): ?Product
     {
         return $this->product;
     }
 
-
-    /**
-     * Set the value of product
-     *
-     * @return  self
-     */
-    public function setProduct(?Product $product) : self
+    public function setProduct(?Product $product): self
     {
         $this->product = $product;
 

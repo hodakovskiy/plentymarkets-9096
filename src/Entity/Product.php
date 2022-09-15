@@ -34,10 +34,17 @@ class Product
     private $variations;
 
 
-
+    /**
+     * @ORM\OneToMany(targetEntity=ProductText::class, mappedBy="product", orphanRemoval=true, cascade={"persist"})
+     */
+    private $texts;
+    
+ 
     public function __construct()
     {
         $this->variations = new ArrayCollection();
+        $this->productTexts = new ArrayCollection();
+        $this->texts = new ArrayCollection();
     }
 
     public function setId($id)
@@ -51,7 +58,6 @@ class Product
         return $this->id;
     }
 
-
     public function getName(): ?string
     {
         return $this->name;
@@ -64,13 +70,12 @@ class Product
         return $this;
     }
 
-
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
@@ -122,6 +127,36 @@ class Product
             'description' => $this->description,
             'variations' => $this->variations->toArray()
         ];
+    }
+
+    /**
+     * @return Collection<int, ProductText>
+     */
+    public function getTexts(): Collection
+    {
+        return $this->texts;
+    }
+
+    public function addText(ProductText $text): self
+    {
+        if (!$this->texts->contains($text)) {
+            $this->texts[] = $text;
+            $text->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeText(ProductText $text): self
+    {
+        if ($this->texts->removeElement($text)) {
+            // set the owning side to null (unless already changed)
+            if ($text->getProduct() === $this) {
+                $text->setProduct(null);
+            }
+        }
+
+        return $this;
     }
 
 }

@@ -20,9 +20,17 @@ class ProductsHttpService
     $this->baseApiService = $baseApiService;
   }
 
-  public function get($id)
+  /**
+   * Get items from API
+   *
+   * @param [type] $id
+   * @param string $lang
+   * @return void
+   */
+ 
+  public function get($id, $lang = 'de')
   {
-    $url =  '/items/' . $id;
+    $url =  '/items/' . $id. '?lang=' . $lang;
     $method = 'GET';
     $data = false;
     $result = $this->baseApiService->requestApi($url, $method, $data);

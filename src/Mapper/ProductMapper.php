@@ -20,4 +20,9 @@ class ProductMapper
                 ->setDescription($texts['description']);
     }
 
+    static public function map(array $product, ?Product $target = null): Product
+    {
+        return (new self())($product, $target);
+    }
+
 }

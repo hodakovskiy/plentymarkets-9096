@@ -31,6 +31,11 @@ class VariationsMapper
             ->setMarketAvailabilities($this->getMarketAvailabilities($variation));
   }
 
+  static public function map(array $variation, ?Variations $target = null): Variations
+  {
+    return (new self())($variation, $target);
+  }
+
   private function getCategoryName($variation)
   {
 
@@ -43,7 +48,10 @@ class VariationsMapper
 
   private function getBarcode($variation)
   {
-    return current($variation['variationBarcodes'])['code'];
+    if(isset($variation['variationBarcodes'][0]['code'])){
+      return $variation['variationBarcodes'][0]['code'];
+    }
+    
   }
 
   private function getPrice($variation)
