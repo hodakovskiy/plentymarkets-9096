@@ -28,7 +28,6 @@ class BaseApiService
     if (empty($this->token)) {
       $this->token = $this->getToken();
     }
-
   }
 
   public function getToken(): string
@@ -48,12 +47,9 @@ class BaseApiService
     if ($statusCode === 200) {
       $content = $response->toArray();
       return $content['access_token'];
-
-     
     } else {
-        throw new \Exception('Error: ' . $statusCode.' Content:'.$response->getContent());
+      throw new \Exception('Error: ' . $statusCode . ' Content:' . $response->getContent());
     }
-
   }
 
   public function requestApi($url, $method, $data = false)
@@ -62,22 +58,22 @@ class BaseApiService
     $response = $this->client->request($method, self::URL_BASE . $url, [
       'headers' => [
         'Content-Type' => 'application/json',
-        'Authorization' => 'Bearer '.$this->token,
+        'Authorization' => 'Bearer ' . $this->token,
         'auth_bearer' => $this->token
       ],
     ]);
 
     $statusCode = $response->getStatusCode();
 
-    $content = $response->getContent();
     if ($statusCode === 200) {
-      return json_decode($content, true);
+      return $response->toArray();
     } else {
-      throw new \Exception('Error: ' . $statusCode.' Content:'.$content);
+      return [
+        "error" => ["message" => "Resource not found.",
+        "status_сode" => $statusCode
+        ]
+      ];
     }
-    $content = $response->toArray();
-
-    return $content;
   }
 
 }
