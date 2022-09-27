@@ -6,7 +6,7 @@ namespace App\Service;
 use App\Mapper\OrderMapper;
 use App\Repository\OrderRepository;
 use App\Service\Http\OrderHttpService;
-use App\Service\Help\WebStores\WebStoresHelp;
+//use App\Service\Help\WebStores\WebStoresHelp;
 
 class OrderService
 {
@@ -16,12 +16,12 @@ class OrderService
 
     public function __construct(
         OrderHttpService $orderHttpService,
-        OrderRepository $orderRepository,
-        WebStoresHelp $webStoresHelp
+        OrderRepository $orderRepository
+        //WebStoresHelp $webStoresHelp
     ) {
         $this->orderHttpService = $orderHttpService;
         $this->orderRepository = $orderRepository;
-        $this->webStoresHelp = $webStoresHelp;
+        //$this->webStoresHelp = $webStoresHelp;
     }
 
     /**
@@ -31,7 +31,20 @@ class OrderService
      */
     public function getOrder($id)
     {
-        $order = $this->orderRepository->find($id);
+        $order =  json_decode('{
+            "id": 155,
+            "clientName": "Klaus Wowereit",
+            "address" : "Gustav-Mueller-Strasse 1, 10829 Berlin, Berlin, Germany",
+            "market":"Standard Shop 1",
+            "aboutProduct":{
+              "itemVariationId": 2876,
+              "orderItemName":"en Shorts",
+              "attributeValues":"black",
+              "currency":"EUR",
+              "priceOriginalGross":10
+            }
+                     
+           }');
         return $order;
     }
 
@@ -43,15 +56,28 @@ class OrderService
      */
 
     public function addOrder($id){
-        $order = $this->orderHttpService->get($id);
+       // $order = $this->orderHttpService->get($id);
 
-        if (!$order) {
-            return false;
-        }
+        //if (!$order) {
+        //    return false;
+       // }
 
+        $order =  json_decode('{
+            "id": 155,
+            "clientName": "Klaus Wowereit",
+            "address" : "Gustav-Mueller-Strasse 1, 10829 Berlin, Berlin, Germany",
+            "market":"Standard Shop 1",
+            "aboutProduct":{
+              "itemVariationId": 2876,
+              "orderItemName":"en Shorts",
+              "attributeValues":"black",
+              "currency":"EUR",
+              "priceOriginalGross":10
+            }
+                     
+           }');
 
-
-        $order = OrderMapper::map($order);
+     
 
         dd($order );
         $order = OrderMapper::map($order);
